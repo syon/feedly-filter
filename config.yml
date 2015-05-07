@@ -1,0 +1,28 @@
+options:
+
+  # muted articles are tagged by this label.
+  # blank to off this feature.
+  mute_tag_label: MUTED
+
+  # skips muting process if the article is so popular.
+  # Note:
+  #   - skips even if the article matches your mute condition
+  #   - articles are muted lower than this value.
+  #   - blank or 99999 will be OFF this feature.
+  engagement_threshold: 200
+
+mute_def:
+
+  # if the article title contains following words will be muted.
+  # Note:
+  #   the article title and mute words are evaluated after converting
+  #   to upcase, half-width and non-space.
+  #   e.g. ABC123 == abc 123 == Ａｂｃ１２３
+  word:
+    - ｗｗｗｗ
+    - 閲覧注意
+
+  # if the article url contains following text will be muted.
+  url:
+    - blog.example.com
+    - example.com/mute/
