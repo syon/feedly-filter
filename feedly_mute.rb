@@ -36,8 +36,8 @@ class FeedlyMute
     return if muted_eids.size == 0
 
     # Mark as read muted entries
-    #result = @client.mark_articles_as_read muted_eids
-    #puts result
+    result = @client.mark_articles_as_read muted_eids
+    puts result
 
     # Tag muted entries
     if @mute_tag_label
@@ -54,7 +54,6 @@ class FeedlyMute
     mute_words.map do |word|
       tr_word = convert_upcase_halfwidth word
       tr_title = convert_upcase_halfwidth title
-      #puts "#{tr_word} -- #{tr_title}"
       return true if tr_title.include? tr_word
     end
     return false
