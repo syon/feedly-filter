@@ -6,7 +6,7 @@ options:
 
   # skips muting process if the article is so popular.
   # Note:
-  #   - skips even if the article matches your mute condition
+  #   - skips even if the article matches your mute rule.
   #   - articles are muted lower than this value.
   #   - blank or 99999 will be OFF this feature.
   engagement_threshold: 200
