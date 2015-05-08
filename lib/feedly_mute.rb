@@ -6,6 +6,7 @@ class FeedlyMute
 
   def initialize(options = {})
     @mute_tag_label = options['mute_tag_label']
+    @tag_only_mode = options['tag_only_mode']
     @engagement_threshold = options['engagement_threshold'] ||= "99999"
 
     @client = Feedlr::Client.new({oauth_access_token: ENV['ACCESS_TOKEN']})
@@ -24,7 +25,9 @@ class FeedlyMute
     return if muted_eids.size == 0
 
     # Mark as read muted entries
-    @client.mark_articles_as_read muted_eids
+    if @tag_only_mode
+      @client.mark_articles_as_read muted_eids
+    end
 
     # Tag muted entries
     if @mute_tag_label

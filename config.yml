@@ -4,6 +4,10 @@ options:
   # blank to off this feature.
   mute_tag_label: MUTED
 
+  # for testing your config.
+  # the process will tag articles but NOT mark as read.
+  tag_only_mode: false
+
   # skips muting process if the article is so popular.
   # Note:
   #   - skips even if the article matches your mute rule.
