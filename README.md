@@ -1,5 +1,5 @@
-Feedly Mute
-===========
+Feedly Filter
+=============
 
 Mark as read articles and tag "MUTE" in Feedly with your config.
 
@@ -15,21 +15,20 @@ Mark as read articles and tag "MUTE" in Feedly with your config.
     ```
 3. Edit your config
     - config.yml
-
-```yaml
-options:
-  mute_tag_label: MUTED
-  tag_only_mode: false
-  engagement_threshold: 200
-
-mute_def:
-  word:
-    - ｗｗｗｗ
-    - 閲覧注意
-  url:
-    - blog.example.com
-    - example.com/mute/
-```
+    ```yaml
+    options:
+      mute_tag_label: MUTED
+      tag_only_mode: false
+      engagement_threshold: 200
+    
+    mute_def:
+      word:
+        - ｗｗｗｗ
+        - 閲覧注意
+      url:
+        - blog.example.com
+        - example.com/mute/
+    ```
 
 
 ### CLI sample
