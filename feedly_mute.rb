@@ -23,16 +23,7 @@ class FeedlyMute
     entries = @client.stream_entries_contents(stream_id, :count => 1000).items
     return unless entries
 
-    muted_eids = []
-    entries.map do |e|
-      next if e.engagement.to_i > @engagement_threshold.to_i
-      if is_muted_by_title(e.title, mute_def['word'])
-        muted_eids.push e.id
-      end
-      if is_muted_by_url(e.alternate.first.href, mute_def['url'])
-        muted_eids.push e.id
-      end
-    end
+    muted_eids = fetch_muted_eids entries
     return if muted_eids.size == 0
 
     # Mark as read muted entries
@@ -48,6 +39,20 @@ class FeedlyMute
   end
 
   private
+
+  def fetch_muted_eids(entries)
+    muted_eids = []
+    entries.each do |e|
+      next if e.engagement.to_i > @engagement_threshold.to_i
+      if is_muted_by_title(e.title, mute_def['word'])
+        muted_eids.push e.id
+      end
+      if is_muted_by_url(e.alternate.first.href, mute_def['url'])
+        muted_eids.push e.id
+      end
+    end
+    muted_eids
+  end
 
   def is_muted_by_title(title, mute_words)
     mute_words.map do |word|
