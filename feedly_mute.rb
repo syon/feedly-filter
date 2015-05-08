@@ -18,10 +18,10 @@ class FeedlyMute
   end
 
   def mark_muted_as_read(mute_def)
-
     profile_id = @client.user_profile.id
     stream_id = "user/#{profile_id}/category/global.all"
     entries = @client.stream_entries_contents(stream_id, :count => 1000).items
+    return unless entries
 
     muted_eids = []
     entries.map do |e|
@@ -36,23 +36,22 @@ class FeedlyMute
     return if muted_eids.size == 0
 
     # Mark as read muted entries
-    result = @client.mark_articles_as_read muted_eids
-    puts result
+    @client.mark_articles_as_read muted_eids
 
     # Tag muted entries
     if @mute_tag_label
-      tag_label = @mute_tag_label
-      muted_tag_id = "user/#{@client.user_profile.id}/tag/#{tag_label}"
-      result = @client.tag_entries muted_eids, [muted_tag_id]
-      puts result
+      muted_tag_id = "user/#{@client.user_profile.id}/tag/#{@mute_tag_label}"
+      @client.tag_entries muted_eids, [muted_tag_id]
     end
+
+    client.user_entries muted_eids
   end
 
   private
 
   def is_muted_by_title(title, mute_words)
     mute_words.map do |word|
-      tr_word = convert_upcase_halfwidth word
+      tr_word  = convert_upcase_halfwidth word
       tr_title = convert_upcase_halfwidth title
       return true if tr_title.include? tr_word
     end
