@@ -20,7 +20,7 @@ class FeedlyMute
     entries = @client.stream_entries_contents(stream_id, :count => 1000).items
     return unless entries
 
-    muted_eids = fetch_muted_eids entries
+    muted_eids = fetch_muted_eids entries, mute_def
     return if muted_eids.size == 0
 
     # Mark as read muted entries
@@ -37,7 +37,7 @@ class FeedlyMute
 
   private
 
-  def fetch_muted_eids(entries)
+  def fetch_muted_eids(entries, mute_def)
     muted_eids = []
     entries.each do |e|
       next if e.engagement.to_i > @engagement_threshold.to_i
