@@ -1,0 +1,29 @@
+- content_for :title do "Feedly Mute Filter" end
+
+css:
+  #result {
+    margin-top: 20px;
+  }
+  #result td .url {
+  	/* essential */
+  	text-overflow: ellipsis;
+  	width: 300px;
+  	white-space: nowrap;
+  	overflow: hidden;
+
+  	/* for good looks */
+  	padding: 0 10px;
+  }
+
+.text-center
+  h1 = "Feedly Mute Filter"
+  form action="/" method="POST"
+    button type="submit" class="btn btn-primary" Mute
+
+#result
+  table.table.table-condensed
+    - @entries.each do |e|
+      tr
+        td
+          .url = e.alternate.first.href
+        td = e.title
