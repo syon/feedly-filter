@@ -10,9 +10,9 @@ Mark as read articles and tag "MUTE" in Feedly with your config.
     - https://feedly.com/v3/auth/dev
 2. Paste it into .env file
     - .env
-```sh
-ACCESS_TOKEN="Anm8nV5.....mQifQ:feedlydev"
-```
+    ```sh
+    ACCESS_TOKEN="Anm8nV5.....mQifQ:feedlydev"
+    ```
 3. Edit your config
     - config.yml
 
