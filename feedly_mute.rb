@@ -9,12 +9,9 @@ class FeedlyMute
     @engagement_threshold = options['engagement_threshold'] ||= "99999"
 
     @client = Feedlr::Client.new({oauth_access_token: ENV['ACCESS_TOKEN']})
-    begin
-      @client.user_profile
-    rescue => ex
-      p ex
-      exit
-    end
+
+    # Testing auth
+    @client.user_profile
   end
 
   def mark_muted_as_read(mute_def)
