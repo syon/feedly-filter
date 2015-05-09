@@ -25,9 +25,7 @@ class FeedlyMute
     return if muted_eids.size == 0
 
     # Mark as read muted entries
-    if @tag_only_mode
-      @client.mark_articles_as_read muted_eids
-    end
+    @client.mark_articles_as_read muted_eids unless @tag_only_mode
 
     # Tag muted entries
     if @mute_tag_label
