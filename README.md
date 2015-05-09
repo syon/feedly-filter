@@ -69,7 +69,7 @@ require 'yaml'
 require 'ap'
 
 config = YAML.load_file "config.yml"
-mute = FeedlyMute.new(config['options'])
+mute = FeedlyFilter.new(config['options'])
 entries = mute.mark_muted_as_read(config['mute_def'])
 ap entries.first
 ```

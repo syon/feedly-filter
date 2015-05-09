@@ -1,7 +1,7 @@
 require 'feedlr'
 require 'dotenv'
 
-class FeedlyMute
+class FeedlyFilter
 
   attr_accessor :client
 
