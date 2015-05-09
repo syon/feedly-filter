@@ -3,7 +3,7 @@ require 'dotenv'
 
 class FeedlyFilter
 
-  attr_accessor :client
+  attr_accessor :client, :profile, :subscriptions
 
   def initialize(options = {})
     @mute_tag_label = options['mute_tag_label']
@@ -14,7 +14,10 @@ class FeedlyFilter
     @client = Feedlr::Client.new({oauth_access_token: ENV['ACCESS_TOKEN']})
 
     # Testing auth
-    @client.user_profile
+    @profile = @client.user_profile
+    @subscriptions = @client.user_subscriptions
+
+    @client
   end
 
   def mark_muted_as_read(mute_def)
@@ -50,6 +53,9 @@ class FeedlyFilter
       if is_muted_by_url(e.alternate.first.href, mute_def['url'])
         muted_eids.push e.id
       end
+      if is_muted_by_timeout(e, mute_def['timeout'])
+        muted_eids.push e.id
+      end
     end
     muted_eids
   end
@@ -72,5 +78,33 @@ class FeedlyFilter
       return true if url.include? mu
     end
     return false
+  end
+
+  def is_muted_by_timeout(entry, timeout_def)
+    is_feed = is_timeout_by_feedname   entry, timeout_def['feedname']
+    is_elap = is_timeout_by_elapsed    entry, timeout_def['elapsed']
+    is_enga = is_timeout_by_engagement entry, timeout_def['engagement']
+    return is_feed & is_elap & is_enga
+  end
+
+  def is_timeout_by_feedname(entry, def_feedname)
+    feedname = detect_custom_feedname entry
+    def_feedname.include? feedname
+  end
+
+  def detect_custom_feedname(entry)
+    @subscriptions.each do |s|
+      return s.title if s.id == entry.origin.streamId
+    end
+  end
+
+  def is_timeout_by_elapsed(entry, def_elapsed)
+    crawled = entry.crawled.to_s[0..9].to_i
+    current = Time.now.to_i.to_s[0..9].to_i
+    (current - crawled) > def_elapsed
+  end
+
+  def is_timeout_by_engagement(entry, def_engagement)
+    entry.engagement.to_i < def_engagement
   end
 end

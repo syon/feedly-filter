@@ -64,12 +64,12 @@ $ foreman start
 ### Run on CLI (Ruby)
 
 ```ruby
-require_relative 'lib/feedly_mute'
+require_relative 'lib/feedly_filter'
 require 'yaml'
 require 'ap'
 
 config = YAML.load_file "config.yml"
-mute = FeedlyFilter.new(config['options'])
-entries = mute.mark_muted_as_read(config['mute_def'])
+ff = FeedlyFilter.new(config['options'])
+entries = ff.client.mark_muted_as_read(config['mute_def'])
 ap entries.first
 ```

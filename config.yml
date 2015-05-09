@@ -30,3 +30,15 @@ mute_def:
   url:
     - blog.example.com
     - example.com/mute/
+
+  # this feature helps you to reduce handling unpopular articles.
+  # if the article has been left long time and the engagement
+  # is low, it'll be muted.
+  # feedname: target feed name (perfect match).
+  timeout:
+    elapsed: 86400
+    engagement: 1
+    feedname:
+      - ASCII.jp － トップ
+      - Crea Web（クレア ウェブ）
+      - xラジック
