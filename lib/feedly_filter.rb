@@ -13,8 +13,13 @@ class FeedlyFilter
     Dotenv.load
     @client = Feedlr::Client.new({oauth_access_token: ENV['ACCESS_TOKEN']})
 
-    # Testing auth
-    @profile = @client.user_profile
+    # Testing auth and connection
+    result = @client.user_profile
+    if result.keys.include? "errorCode"
+      raise result.to_s
+    else
+      @profile = result
+    end
     @subscriptions = @client.user_subscriptions
 
     @client
@@ -84,6 +89,7 @@ class FeedlyFilter
     is_feed = is_timeout_by_feedname   entry, timeout_def['feedname']
     is_elap = is_timeout_by_elapsed    entry, timeout_def['elapsed']
     is_enga = is_timeout_by_engagement entry, timeout_def['engagement']
+    #puts "ENG: (#{entry.engagement}) :: #{entry.title} => #{is_feed & is_elap & is_enga}" if is_feed
     return is_feed & is_elap & is_enga
   end
 

@@ -21,9 +21,13 @@ css:
     button type="submit" class="btn btn-primary" Filter
 
 #result
+  - if @error
+    #error = @error
+
   table.table.table-condensed
-    - @entries.each do |e|
-      tr
-        td
-          .url = e.alternate.first.href
-        td = e.title
+    - if @entries
+      - @entries.each do |e|
+        tr
+          td
+            .url = e.alternate.first.href
+          td = e.title
