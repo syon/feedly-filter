@@ -1,4 +1,5 @@
 require 'feedlr'
+require 'dotenv'
 
 class FeedlyMute
 
@@ -9,6 +10,7 @@ class FeedlyMute
     @tag_only_mode = options['tag_only_mode']
     @engagement_threshold = options['engagement_threshold'] ||= "99999"
 
+    Dotenv.load
     @client = Feedlr::Client.new({oauth_access_token: ENV['ACCESS_TOKEN']})
 
     # Testing auth

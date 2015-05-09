@@ -66,8 +66,10 @@ $ foreman start
 ```ruby
 require_relative 'lib/feedly_mute'
 require 'yaml'
+require 'ap'
 
 config = YAML.load_file "config.yml"
 mute = FeedlyMute.new(config['options'])
 entries = mute.mark_muted_as_read(config['mute_def'])
+ap entries.first
 ```
