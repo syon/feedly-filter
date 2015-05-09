@@ -1,8 +1,13 @@
 require 'dotenv'
 require 'yaml'
-require_relative 'lib/feedly_mute'
+require_relative 'lib/feedly_filter'
 
 get '/' do
+  @entries = []
+  slim :index
+end
+
+post '/' do
   Dotenv.load
   config = YAML.load_file "config.yml"
   mute = FeedlyFilter.new(config['options'])
