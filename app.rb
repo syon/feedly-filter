@@ -1,5 +1,6 @@
 require 'dotenv'
 require 'yaml'
+require 'json'
 require_relative 'lib/feedly_filter'
 
 get '/' do
@@ -15,5 +16,5 @@ post '/' do
   rescue => ex
     @error = ex
   end
-  slim :index
+  @entries.to_json
 end

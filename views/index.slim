@@ -15,19 +15,19 @@ css:
   	padding: 0 10px;
   }
 
-.text-center
-  h1 = "Feedly Mute Filter"
-  form action="/" method="POST"
-    button type="submit" class="btn btn-primary" Filter
+div ng-controller="appCtrl"
 
-#result
-  - if @error
-    #error = @error
+  .text-center
+    h1 = "Feedly Mute Filter"
+    button class="btn btn-primary" ng-click="click()" Filter
+    div ng-bind="ajaxstate"
 
-  table.table.table-condensed
-    - if @entries
-      - @entries.each do |e|
-        tr
-          td
-            .url = e.alternate.first.href
-          td = e.title
+  #result
+    - if @error
+      #error = @error
+
+    table.table.table-condensed
+      tr ng-repeat="art in articles"
+        td
+          .url ng-bind="art.alternate[0].href"
+        td ng-bind="art.title"
