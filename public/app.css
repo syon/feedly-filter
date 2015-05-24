@@ -1,0 +1,9 @@
+.menuBtn {
+  background-color: transparent;
+  border: none;
+  margin-left: 16px;
+}
+
+md-list-item.md-3-line .md-list-item-text h3 {
+  line-height: 1.3;
+}

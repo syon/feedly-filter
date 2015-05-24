@@ -1,33 +1,31 @@
 - content_for :title do "Feedly Filter" end
 
-css:
-  #result {
-    margin-top: 20px;
-  }
-  #result td .url {
-  	/* essential */
-  	text-overflow: ellipsis;
-  	width: 300px;
-  	white-space: nowrap;
-  	overflow: hidden;
 
-  	/* for good looks */
-  	padding: 0 10px;
-  }
+md-toolbar.md-whiteframe-z2
+  div layout="row"
+    button.md-icon-button.menuBtn hide-gt-sm="" ng-click="toggleSidenav('left')"
+      span.md-visually-hidden Menu
+    h1.md-toolbar-tools layout-align-gt-sm="center" Feedly Filter
 
-div ng-controller="appCtrl"
+  md-progress-linear ng-if="ing" md-mode="indeterminate" class="md-accent"
 
-  .text-center
-    h1 = "Feedly Mute Filter"
-    button class="btn btn-primary" ng-click="click()" Filter
-    div ng-bind="ajaxstate"
+div flex="" layout="row"
+  md-sidenav.md-sidenav-left.md-whiteframe-z2 layout="column" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
 
-  #result
-    - if @error
-      #error = @error
+  md-button.md-fab.md-fab-bottom-right aria-label=("Sync")
+    md-icon md-svg-src="img/icons/ic_sync_48px.svg" ng-click="click()"
 
-    table.table.table-condensed
-      tr ng-repeat="art in articles"
-        td
-          .url ng-bind="art.alternate[0].href"
-        td ng-bind="art.title"
+  md-content.md-padding flex="" layout="column"
+
+    #result
+      - if @error
+        #error = @error
+
+      md-list
+        md-subheader.md-no-sticky Muted Articles
+        md-divider
+        md-list-item.md-3-line ng-repeat=("art in articles track by $index")
+          .md-list-item-text
+            h3 ng-bind="art.title"
+            p ng-bind="art.alternate[0].href"
+          md-divider
