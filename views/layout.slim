@@ -5,14 +5,22 @@ html ng-app='myApp'
 
     title = yield_content :title
 
-    link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+    meta content="initial-scale=1" name="viewport"
+    link href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css" rel="stylesheet"
+    link href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic" rel="stylesheet"
+    link href="app.css" rel="stylesheet"
+
+  body layout="column" ng-controller="AppCtrl"
+
+    == yield
+
+
+    / jQuery
     script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
-    script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
-    script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js"
+    / Angular Material Dependencies
+    script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"
+    script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"
+    script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"
+    script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"
+    / App
     script src="app.js"
-
-  body
-
-    .container
-
-      == yield
